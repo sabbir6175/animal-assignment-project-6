@@ -23,16 +23,16 @@
     <header>
         <section class="container mx-auto py-10">
             <!-- navbar section start -->
-            <nav class="flex justify-between items-center mb-10">
-                <div class="flex gap-2 items-center">
+            <nav class="flex justify-between gap-3 items-center mb-10">
+                <div class="flex gap-1 md:gap-2 items-center">
                     <img class="w-5 h-5" src="images/logo.webp" alt="logo Picture">
                     <span class="text-2xl md:text-3xl text-[#131313] font-bold">Peddy</span>
                 </div>
                 <div>
                     <ul class="flex gap-2 md:gap-10">
-                        <li class="hover:bg-[#0E7A81] px-2 rounded-sm"><a class="text-base" href="">Home</a></li>
-                        <li class="hover:bg-[#0E7A81] px-2 rounded-sm"><a class="text-base" href="">Shop</a></li>
-                        <li class="hover:bg-[#0E7A81] px-2 rounded-sm"><a class="text-base" href="">Contact</a></li>
+                        <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Home</a></li>
+                        <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Shop</a></li>
+                        <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Contact</a></li>
                     </ul>
                 </div>
                 <div>
@@ -61,7 +61,7 @@
             </div>
         </section>
         <!-- all button api from all data collect in this browsers -->
-         <section id="categories" class="container mx-auto flex justify-between py-10 ">
+         <section id="categories" class="container mx-auto flex justify-between sm:gap-3 ">
            
          </section>
          <section>
@@ -70,9 +70,24 @@
                 <button class="btn bg-[#0E7A81]  text-white ">Sort by Price</button>
             </div>
          </section>
+          <!-- Peddy card collect in html code and show browser -->
+          <section>
+            <div class="grid grid-cols-12 gap-5">
+                <div class="col-span-9 ">
+                    <div id="card-left" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        
+                    </div>
+                </div>
+                <div class="col-span-3 border-2 rounded-xl p-3">
+                    <div id="card-right" class="grid grid-cols-2 gap-5">
+                       
+                    </div>
+                </div>
+            </div>
+         </section>
     </main>
 
-    
+
 
     <script src="js/dataApi.js"></script>
 </body>
