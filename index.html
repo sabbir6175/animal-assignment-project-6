@@ -17,9 +17,14 @@
          .Lato-font{
             font-family: "Lato", sans-serif;
          }
+         .active{
+            background: #6cb2b7d5;
+            border-radius: 9999px;
+         }
     </style>
 </head>
 <body class="Lato-font">
+ 
     <header>
         <section class="container mx-auto py-10">
             <!-- navbar section start -->
@@ -85,6 +90,24 @@
                 </div>
             </div>
          </section>
+         <!-- modal count when details button click -->
+
+
+         <!-- Open the modal using ID.showModal() method -->
+        <button id="showModalData" class="btn hidden" onclick="customModal.showModal()">open modal</button>
+        <dialog id="customModal" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box ">
+            <div id="modal-content">
+
+            </div>
+            <div class="modal-action w-full justify-center">
+                <form method="dialog w-full  ">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn w-full">Cancel</button>
+                </form>
+            </div>
+        </div>
+        </dialog>
     </main>
 
 
