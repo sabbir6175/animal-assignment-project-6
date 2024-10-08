@@ -1,5 +1,20 @@
 console.log('show all data');
 
+
+// view more button a click korle adobe your best friend section niye asbe
+
+document.addEventListener('click', () => {
+    const scrollBarBtn = document.getElementById('ScrollBarButton');
+    const endSection = document.getElementById('successBtn');
+
+    scrollBarBtn.addEventListener("click", () =>{
+        endSection.scrollIntoView({ behavior : "smooth"})
+    })
+
+})
+
+
+
 // create loadCategories use the button 
 const loadCategoriesBtn = () => {
     // 3 number api fetch
@@ -43,19 +58,50 @@ const displayCategories =(categories) =>{
         // console.log(items);
         const buttonContainer = document.createElement('div');
         buttonContainer.innerHTML = `
-            <button id="btn-${items.category}" onclick="clickButtonShow('${items.category}')" class="btn btn-lg w-60 h-[78px]  border-2 border-gray-200  category-btn">
-             <img src="${items.category_icon}" alt="Category Icon" class="category-icon" /> 
-             <span class="text-xl md:text-3xl">${items.category}</span>
+            <button id="btn-${items.category}" onclick="clickButtonShow('${items.category}')" class="btn  md:btn-lg  w-36 md:w-60 h-16 border-2 border-gray-200  category-btn ">
+             <img  src="${items.category_icon}" alt="Category Icon" class="category-icon w-10" /> 
+             <span class="text-base md:text-3xl">${items.category}</span>
             </button>
         `
         categoriesBtn.append(buttonContainer)
     })
 }
-// adobe button er jonno
+// adopt button show start
+const adobeClickBtn= () => {
+    const modal_container = document.getElementById('adoptModalContent');
+    modal_container.innerHTML = `
 
+    <div class="flex flex-col justify-center items-center px-4 lg:px-0">
+    
+        <div><img src="https://img.icons8.com/?size=48&id=q6BlPrJZmxHV&format=png" class="w-[80px]"></div>
+        <h2 class="text-4xl my-3 font-bold">Congrates</h2>
+        <span class="text-base md:text-xl my-3 font-medium">Adoption Process is Start For your Pet</span>
+        <p class="countNumber text-5xl font-bold">3</p>
 
+    </div>
 
-// details button er jonno
+    `;
+    //Show modal when button was clicked
+    const modal = document.getElementById('adoptModalShow');
+    modal.showModal();
+    // counter decrease logic
+    let count = 3;
+
+    const countNum = document.querySelector('.countNumber');
+    const countdown = setInterval(() => {
+        count--;
+        countNum.innerText = count;
+
+        if (count === 0) {
+            clearInterval(countdown);
+            modal.close();
+        }
+    }, 1000);
+
+}
+// adopt button show end
+
+// details button er kaj start
 const detailsDataShow = async (id) =>{
         console.log(id);
         const fetchUrl = (`https://openapi.programming-hero.com/api/peddy/pet/${id}`)
@@ -69,10 +115,10 @@ const detailsDisplay = (petData) =>{
     modalContainer.innerHTML = `
          <img class ="w-full rounded-lg object-cover mb-5" src="${petData.image}" alt="">
             <h1 class="text-xl font-black mb-4">${petData.pet_name}</h1>
-         <div class="flex gap-10 mb-5">
+         <div class="flex flex-col md:flex-row md:gap-10 mb-5">
             <div class="">
                 <div class="flex gap-2 mb-2">
-                    <img class="w-4" src="images/Frame1.png" alt="">
+                    <img class="md:w-4" src="images/Frame1.png" alt="">
                     <span>breed: ${ petData.breed ? petData.breed : "Normal Breed"}</span>
                 </div>
                  <div class="flex gap-2 mb-2">
@@ -86,7 +132,7 @@ const detailsDisplay = (petData) =>{
             </div>
              <div class="">
                 <div class="flex gap-2 mb-2">
-                    <img class="w-4" src="images/Frame2.png" alt="">
+                    <img class="md:w-4" src="images/Frame2.png" alt="">
                     <span>Birth: ${petData.date_of_birth ? petData.date_of_birth : "Not available"}</span>
                 </div>
                 <div class="flex gap-2 mb-2">
@@ -105,19 +151,44 @@ const detailsDisplay = (petData) =>{
     `
     document.getElementById("customModal").showModal();
 }
-// {
-//     "petId": 1,
-//     "breed": "Golden Retriever",
-//     "category": "Dog",
-//     "date_of_birth": "2023-01-15",
-//     "price": 1200,
-//     "image": "https://i.ibb.co.com/p0w744T/pet-1.jpg",
-//     "gender": "Male",
-//     "pet_details": "This friendly male Golden Retriever is energetic and loyal, making him a perfect companion for families. Born on January 15, 2023, he enjoys playing outdoors and is especially great with children. Fully vaccinated, he's ready to join your family and bring endless joy. Priced at $1200, he offers love, loyalty, and a lively spirit for those seeking a playful yet gentle dog.",
-//     "vaccinated_status": "Fully",
-//     "pet_name": "Sunny"
-// }
+// details button er kaj end
 
+// sort by price descending
+
+const sortByPrice = () => {
+    const cardLeft = document.getElementById('card-left');
+    const leftCard = Array.from(cardLeft.getElementsByClassName('leftCard'));
+
+    if (leftCard.length === 0) {
+        return;
+    }
+
+    //  loading spinner
+    cardLeft.classList.remove('grid');
+    cardLeft.innerHTML = `
+        <div class="flex justify-center items-center  h-auto"><span class="loading loading-bars loading-lg "></span></div>
+    `;
+
+    setTimeout(() => {
+        cardLeft.classList.add('grid');
+        leftCard.sort((a, b) => {
+            const card1 = parseFloat(a.getAttribute('data-price'));
+            const card2 = parseFloat(b.getAttribute('data-price'));
+
+            // jodi price khuje na pay tahole undefined or NaN
+            const value1 = isNaN(card1) ? 0 : card1;
+            const value2 = isNaN(card2) ? 0 : card2;
+
+            return value2 - value1; // Descending order  
+        });
+
+        // clear before all cuties card and append new card
+        cardLeft.innerHTML = "";
+        leftCard.forEach(card => {
+            cardLeft.appendChild(card);
+        });
+    }, 2000);
+}
 // card section load card 
 const loadCard = () => {
     fetch('https://openapi.programming-hero.com/api/peddy/pets')
@@ -128,63 +199,71 @@ const loadCard = () => {
 // card section display show
 const displayCard = (pets) => {
     const cardLeft = document.getElementById('card-left')
-   cardLeft.innerHTML = "";
-    //jodi kono data na thake tahole akta content show korbe  
-    if(pets.length == 0){
-        cardLeft.classList.remove('grid');
-        cardLeft.innerHTML = `
-         <div class="min-h-72 flex flex-col justify-center items-center bg-[#13131308] rounded-lg py-20" >
-                <img src="images/error.webp" alt="">
-                <h2 class=" text-center text-3xl my-4 font-bold">No Information Available</h2>
-                  <p class =" text-center text-base font-normal text-[#131313B3]">It is a long established fact that a reader will be distracted by the readable content of a page when looking at </br> 
-        its layout. The point of using Lorem Ipsum is that it has a.</p>
-        </div>
-        `
-    }else{
-        cardLeft.classList.add('grid');
-    }
-    pets.forEach((pet) => {
-        // console.log(pet);
-
-    // card show data form api
-        const card = document.createElement('div')
-        card.classList= 'card p-5 border-2 border-gray-200'
-        card.innerHTML = `
-         <figure class="h-[200px]">
-            <img src=${pet.image} class="w-full h-full object-cover" alt="Shoes" class="rounded-xl" />
-        </figure>
-        <div class="card-body p-0 mt-3">
-             <div>
-                <h1 class="text-xl font-black mb-4">${pet.pet_name}</h1>
-                <div class="flex gap-2 mb-2">
-                    <img src="images/Frame1.png" alt="">
-                    <span>breed: ${ pet.breed ? pet.breed : "Normal Breed"}</span>
-                </div>
-                <div class="flex gap-2 mb-2">
-                    <img src="images/Frame2.png" alt="">
-                    <span>Birth: ${pet.date_of_birth ? pet.date_of_birth : "Not available"}</span>
-                </div>
-                <div class="flex gap-2 mb-2">
-                    <img src="images/Frame3.png" alt="">
-                    <span>Gender: ${pet.gender ? pet.gender : "Not mentioned"}</span>
-                </div>
-                <div class="flex gap-2 mb-2">
-                    <img src="images/Frame4.png" alt="">
-                    <span>Price: ${pet.price ? pet.price : "Not available"}$</span>
-                </div>
-                  <div class="divider"></div>
-                <div class="flex justify-between gap-2">
-                    <button onclick="ClickShowImage('${pet.image}')" class="btn"><img src="images/like.png" alt=""></button>
-                    <button class="btn text-[#0E7A81] text-lg font-bold">Adopt</button>
-                    <button onclick="detailsDataShow('${pet.petId}')" class="btn text-[#0E7A81] text-lg font-bold">Details</button>
-                </div>
-            </div>
-
-        </div>
+    cardLeft.classList.remove('grid');
+    cardLeft.innerHTML = "";
+    cardLeft.innerHTML = `
+         <div class=" flex justify-center items-center "><span class="loading loading-bars loading-lg "></span></div>
         
-        `
-        cardLeft.appendChild(card)
-    })
+    `;
+    //jodi kono data na thake tahole akta content show korbe  
+    setTimeout(() =>{
+        cardLeft.innerHTML = "";
+        if(pets.length == 0){
+            cardLeft.classList.remove('grid');
+            cardLeft.innerHTML = `
+             <div class="min-h-72 flex flex-col justify-center items-center bg-[#13131308] rounded-lg py-20" >
+                    <img src="images/error.webp" alt="">
+                    <h2 class=" text-center text-3xl my-4 font-bold">No Information Available</h2>
+                      <p class =" text-center text-base font-normal text-[#131313B3]">It is a long established fact that a reader will be distracted by the readable content of a page when looking at </br> 
+            its layout. The point of using Lorem Ipsum is that it has a.</p>
+            </div>
+            `
+        }else{
+            cardLeft.classList.add('grid');
+        }
+        pets.forEach((pet) => {
+            // console.log(pet);
+    
+        // card show data form api
+            const card = document.createElement('div')
+            card.classList= 'card '
+            card.innerHTML = `
+             <div class="leftCard border-2 rounded-lg p-4" data-price="${pet.price}">
+                    <figure class="h-[200px]">
+                    <img src=${pet.image} class="w-full h-full object-cover" alt="Shoes" class="rounded-xl" />
+                </figure>
+                <div class="card-body p-0 mt-3">
+                    <div>
+                        <h1 class="text-xl font-black mb-4">${pet.pet_name}</h1>
+                        <div class="flex gap-2 mb-2">
+                            <img src="images/Frame1.png" alt="">
+                            <span>breed: ${ pet.breed ? pet.breed : "Not Found"}</span>
+                        </div>
+                        <div class="flex gap-2 mb-2">
+                            <img src="images/Frame2.png" alt="">
+                            <span>Birth: ${pet.date_of_birth ? pet.date_of_birth : "Not available"}</span>
+                        </div>
+                        <div class="flex gap-2 mb-2">
+                            <img src="images/Frame3.png" alt="">
+                            <span>Gender: ${pet.gender ? pet.gender : "Not mentioned"}</span>
+                        </div>
+                        <div class="flex gap-2 mb-2">
+                            <img src="images/Frame4.png" alt="">
+                            <span>Price: ${pet.price ? pet.price : "Not available"} $</span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="flex justify-between gap-2">
+                            <button onclick="ClickShowImage('${pet.image}')" class="btn border-2 border-gray-200 p-2  lg:p-auto "><img src="images/like.png" alt=""></button>
+                            <button id="adopt_your_cuties_btn" onclick="adobeClickBtn()" class="btn text-[#0E7A81] text-lg font-bold border-2 border-gray-200 p-2 lg:p-auto " >Adopt</button>
+                            <button onclick="detailsDataShow('${pet.petId}')" class="btn text-[#0E7A81] text-lg font-bold border-2 border-gray-200 p-2 lg:p-auto ">Details</button>
+                        </div>
+                    </div>
+                </div>
+             </div>
+            `;
+            cardLeft.appendChild(card);
+        })
+    },2000);
 }
  //uporer function a akta button a onclick add kora hoiche jokhon like button a click korbe tokhon image ta right side a show korbe 
 const ClickShowImage = (image) => {
@@ -192,10 +271,10 @@ const ClickShowImage = (image) => {
     const cardRightBtn = document.createElement('div');
     cardRightBtn.innerHTML = `
         <figure>
-            <img  src="${image}" alt="Liked Pet Image" class="w-full h-[130px] rounded-xl border-2 p-2" />
+            <img  src="${image}" alt="Liked Pet Image" class="w-full h-[150px] rounded-xl border-2 p-2" />
         </figure>
     `;
-    cardRight.appendChild(cardRightBtn)
+    cardRight.appendChild(cardRightBtn);
 };
 
 

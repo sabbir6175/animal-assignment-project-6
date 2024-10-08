@@ -25,15 +25,16 @@
 </head>
 <body class="Lato-font">
  
-    <header>
+    <header class="px-3">
         <section class="container mx-auto py-10">
             <!-- navbar section start -->
             <nav class="flex justify-between gap-3 items-center mb-10">
+                
                 <div class="flex gap-1 md:gap-2 items-center">
                     <img class="w-5 h-5" src="images/logo.webp" alt="logo Picture">
                     <span class="text-2xl md:text-3xl text-[#131313] font-bold">Peddy</span>
                 </div>
-                <div>
+                <div class="hidden lg:block">
                     <ul class="flex gap-2 md:gap-10">
                         <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Home</a></li>
                         <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Shop</a></li>
@@ -47,10 +48,10 @@
             <!-- banner section start -->
             <div class="banner-area text-center py-5">
                 <div>
-                    <h3 class="text-[#13131399] text-xl md:text-2xl mb-5">Bringing Families Together ❤️‍🔥</h3>
-                    <h1 class="text-4xl md:text-6xl font-black">Your Path to Adoption <br> Starts Here</h1>
-                    <p class="text-base font-normal mt-5">It is a long established fact that a reader will be distracted by the readable content of a page when looking <br> at its layout. The point of using Lorem Ipsum is that it has a.</p>
-                    <button class="btn bg-[#0E7A81] text-white my-10">View More</button>
+                    <h3 class="text-[#13131399] text-lg md:text-2xl mb-5">Bringing Families Together ❤️‍🔥</h3>
+                    <h1 class="text-2xl md:text-6xl font-black">Your Path to Adoption <br> Starts Here</h1>
+                    <p class="text-base font-normal mt-5 text-gray-600">It is a long established fact that a reader will be distracted by the readable content of a page when looking <br> at its layout. The point of using Lorem Ipsum is that it has a.</p>
+                    <button id="ScrollBarButton" class="btn bg-[#0E7A81] text-white my-10">View More</button>
                 </div>
                 <div class="text-center inline-block ">
                     <img src="images/pet.webp" alt="">
@@ -58,32 +59,32 @@
             </div> 
         </section>
     </header>
-    <main class="container mx-auto">
+    <main  class="container mx-auto px-3">
         <section class="container mx-auto">
             <div class="text-center py-10">
-                <h1 class="text-5xl font-black mb-5">Adopt  Your  Best Friend</h1>
+                <h1 id="successBtn" class="text-5xl font-black mb-5">Adopt  Your  Best Friend</h1>
                 <p class="text-base">It is a long established fact that a reader will be distracted by the readable content of a <br> page when looking at its layout. The point of using Lorem Ipsum is that it has a.</p>
             </div>
         </section>
         <!-- all button api from all data collect in this browsers -->
-         <section id="categories" class="container mx-auto flex justify-between sm:gap-3 ">
+         <section id="categories" class="container mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6  ">
            
          </section>
          <section>
             <div class="flex justify-between items-center py-10 ">
                 <span class="text-2xl font-black ">Best Deal For you</span>
-                <button class="btn bg-[#0E7A81]  text-white ">Sort by Price</button>
+                <button onclick="sortByPrice()" class="btn bg-[#0E7A81]  text-white text-lg">Sort by Price</button>
             </div>
          </section>
           <!-- Peddy card collect in html code and show browser -->
           <section>
-            <div class="grid grid-cols-12 gap-5">
-                <div class="col-span-9 ">
-                    <div id="card-left" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="grid grid-rows-1 lg:grid-cols-12  gap-5 py-10">
+                <div  class="col-span-12 lg:col-span-9 ">
+                    <div id="card-left" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         
                     </div>
                 </div>
-                <div class="col-span-3 border-2 rounded-xl p-3">
+                <div class="col-span-12 lg:col-span-3 border-2 rounded-xl p-3">
                     <div id="card-right" class="grid grid-cols-2 gap-5">
                        
                     </div>
@@ -92,23 +93,72 @@
          </section>
          <!-- modal count when details button click -->
 
-
-         <!-- Open the modal using ID.showModal() method -->
         <button id="showModalData" class="btn hidden" onclick="customModal.showModal()">open modal</button>
         <dialog id="customModal" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box ">
+        <div class="modal-box w-60 md:w-full m-auto">
             <div id="modal-content">
 
             </div>
-            <div class="modal-action w-full justify-center">
+            <div class="modal-action  justify-normal inline">
                 <form method="dialog w-full  ">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn w-full">Cancel</button>
+                    
+                    <button class="btn w-full mt-5">Cancel</button>
                 </form>
             </div>
         </div>
         </dialog>
+
+        <!-- adobe button er jonno modal -->
+       
+        <dialog id="adoptModalShow" class="modal modal-center sm:modal-middle px-6 md:px-0">
+            <div class="modal-box w-56 lg:w-full">
+                <div id="adoptModalContent">
+        
+                </div>
+            </div>
+        </dialog>
     </main>
+
+    <footer class="bg-[#131313] px-3">
+        <section class="container mx-auto py-10">
+           <div class="flex justify-between flex-col lg:flex-row gap-5">
+                <div class="">
+                    <div class="flex gap-2 items-center mb-5">
+                        <img class="w-5 h-5" src="images/logo.webp" alt="logo Picture">
+                        <span class="text-2xl md:text-3xl text-white font-bold ">Peddy</span>
+                    </div>
+                    <div class="text-[#FFFFFFE6]">
+                       <p class="text-base font-normal leading-8">Location: av. Washington 165, NY CA <br> 54003</p>
+                       <p class="text-base font-normal leading-8">Phone: +31 85 964 47 25</p>
+                       <p class="text-base font-normal leading-8">Email: info@yourdomain.com</p>
+                       <p class="text-base font-normal leading-8">Openings hours: 9.00 AM - 5.00 PM</p>
+                    </div>
+                    <div class="flex gap-2 text-white items-center">
+                        <a href=""><img src="https://img.icons8.com/?size=48&id=118497&format=png" alt="facebook"></a>
+                        <a href=""><i class="fa-brands fa-x-twitter text-[30px]"></i></a>
+                        <a href=""><img src="https://img.icons8.com/?size=48&id=19318&format=png" alt="youtube"></a>
+                        <a href=""><img src="https://img.icons8.com/?size=48&id=Xy10Jcu1L2Su&format=png" alt="instagram"></a>
+                    </div>
+                </div>
+                <div class="text-white">
+                    <h3 class="text-xl md:text-2xl text-[#FFFFFFE6] font-bold mb-5">Useful Links</h3>
+                    <ul>
+                        <li><a class="text-[#FFFFFF99] font-normal text-base leading-8" href="">Home</a></li>
+                        <li><a class="text-[#FFFFFF99] font-normal text-base leading-8" href="">About Us</a></li>
+                        <li><a class="text-[#FFFFFF99] font-normal text-base leading-8" href="">Animals</a></li>
+                        <li><a class="text-[#FFFFFF99] font-normal text-base leading-8" href="">Foundation</a></li>
+                        <li><a class="text-[#FFFFFF99] font-normal text-base leading-8" href="">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl md:text-2xl text-[#FFFFFFE6] font-bold mb-5">Drop a Message</h3>
+                    <input class="w-full py-3 my-5 px-3 rounded-lg" type="email" placeholder="Enter your Email" required>
+                    <button class="btn bg-[#0E7A81] text-white text-xl font-bold border-none">Subscribe</button>
+    
+                </div>
+           </div>
+        </section>
+    </footer>
 
 
 
