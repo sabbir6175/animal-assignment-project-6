@@ -1,7 +1,10 @@
 console.log('show all data');
 
 
-// view more button a click korle adobe your best friend section niye asbe
+
+
+
+// view more button a click adobe your best friend section
 
 document.addEventListener('click', () => {
     const scrollBarBtn = document.getElementById('ScrollBarButton');
@@ -66,15 +69,65 @@ const displayCategories =(categories) =>{
         categoriesBtn.append(buttonContainer)
     })
 }
+
+// sort by price descending start
+
+const sortByPrice = () => {
+
+    const cardLeft = document.getElementById('card-left');
+
+    const leftCard = Array.from(cardLeft.getElementsByClassName('leftCard'));
+
+    if (leftCard.length === 0) {
+        return;
+    }
+
+
+    //  loading spinner
+    cardLeft.classList.remove('grid');
+    cardLeft.innerHTML = `
+       
+        <div class="flex justify-center items-center for_spinner h-auto"><span class="loading loading-bars loading-lg for_spinner"></span></div>
+      
+    `;
+
+    setTimeout(() => {
+        cardLeft.classList.add('grid');
+        leftCard.sort((a, b) => {
+            const dataCard1 = parseFloat(a.getAttribute('card-data-price'));
+            const dataCard2 = parseFloat(b.getAttribute('card-data-price'));
+
+            // if price is not found or price in undefined or NaN
+            const priceValue1 = isNaN(dataCard1) ? 0 : dataCard1;
+            const priceValue2 = isNaN(dataCard2) ? 0 : dataCard2;
+
+            return priceValue1 - priceValue2; // Descending order  
+        });
+
+        // clear before all cuties card and append new card
+        cardLeft.innerHTML = "";
+        leftCard.forEach(card => {
+            cardLeft.appendChild(card);
+        });
+    }, 2000);
+}
+// end
+
+
+
+
+
+
+
 // adopt button show start
 const adobeClickBtn= () => {
-    const modal_container = document.getElementById('adoptModalContent');
-    modal_container.innerHTML = `
+    const modalContainer = document.getElementById('adoptModalContent');
+    modalContainer.innerHTML = `
 
     <div class="flex flex-col justify-center items-center px-4 lg:px-0">
     
         <div><img src="https://img.icons8.com/?size=48&id=q6BlPrJZmxHV&format=png" class="w-[80px]"></div>
-        <h2 class="text-4xl my-3 font-bold">Congrates</h2>
+        <h2 class="text-4xl my-3 font-bold">Congrats</h2>
         <span class="text-base md:text-xl my-3 font-medium">Adoption Process is Start For your Pet</span>
         <p class="countNumber text-5xl font-bold">3</p>
 
@@ -153,42 +206,6 @@ const detailsDisplay = (petData) =>{
 }
 // details button er kaj end
 
-// sort by price descending
-
-const sortByPrice = () => {
-    const cardLeft = document.getElementById('card-left');
-    const leftCard = Array.from(cardLeft.getElementsByClassName('leftCard'));
-
-    if (leftCard.length === 0) {
-        return;
-    }
-
-    //  loading spinner
-    cardLeft.classList.remove('grid');
-    cardLeft.innerHTML = `
-        <div class="flex justify-center items-center  h-auto"><span class="loading loading-bars loading-lg "></span></div>
-    `;
-
-    setTimeout(() => {
-        cardLeft.classList.add('grid');
-        leftCard.sort((a, b) => {
-            const card1 = parseFloat(a.getAttribute('data-price'));
-            const card2 = parseFloat(b.getAttribute('data-price'));
-
-            // jodi price khuje na pay tahole undefined or NaN
-            const value1 = isNaN(card1) ? 0 : card1;
-            const value2 = isNaN(card2) ? 0 : card2;
-
-            return value2 - value1; // Descending order  
-        });
-
-        // clear before all cuties card and append new card
-        cardLeft.innerHTML = "";
-        leftCard.forEach(card => {
-            cardLeft.appendChild(card);
-        });
-    }, 2000);
-}
 // card section load card 
 const loadCard = () => {
     fetch('https://openapi.programming-hero.com/api/peddy/pets')
@@ -205,7 +222,7 @@ const displayCard = (pets) => {
          <div class=" flex justify-center items-center "><span class="loading loading-bars loading-lg "></span></div>
         
     `;
-    //jodi kono data na thake tahole akta content show korbe  
+    //jodi data na thake tahole akta content show korbe  
     setTimeout(() =>{
         cardLeft.innerHTML = "";
         if(pets.length == 0){
@@ -226,10 +243,10 @@ const displayCard = (pets) => {
     
         // card show data form api
             const card = document.createElement('div')
-            card.classList= 'card '
+            card.classList= 'card rounded-lg border-2'
             card.innerHTML = `
-             <div class="leftCard border-2 rounded-lg p-4" data-price="${pet.price}">
-                    <figure class="h-[200px]">
+            <div class="leftCard border-2 rounded-lg p-3" data-price="${pet.price}"> 
+                <figure class="h-[200px]">
                     <img src=${pet.image} class="w-full h-full object-cover" alt="Shoes" class="rounded-xl" />
                 </figure>
                 <div class="card-body p-0 mt-3">
@@ -259,7 +276,7 @@ const displayCard = (pets) => {
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
             `;
             cardLeft.appendChild(card);
         })

@@ -24,15 +24,29 @@
     </style>
 </head>
 <body class="Lato-font">
- 
     <header class="px-3">
         <section class="container mx-auto py-10">
             <!-- navbar section start -->
             <nav class="flex justify-between gap-3 items-center mb-10">
-                
+                <div class="lg:hidden block">
+                    <div class="dropdown">
+                        <i tabindex="0" role="button"  class="fa-solid fa-bars text-2xl cursor-pointer"></i>
+                        <div
+                          tabindex="0"
+                          class="dropdown-content card card-compact bg-white z-[1] w-64 p-2 shadow ">
+                          <div class="card-body">
+                            <ul class="flex gap-2 flex-col md:gap-10">
+                                <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Home</a></li>
+                                <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Shop</a></li>
+                                <li class="hover:bg-[#0E7A81] px-1 md:px-2 rounded-sm"><a class="text-base" href="">Contact</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                </div>
                 <div class="flex gap-1 md:gap-2 items-center">
-                    <img class="w-5 h-5" src="images/logo.webp" alt="logo Picture">
-                    <span class="text-2xl md:text-3xl text-[#131313] font-bold">Peddy</span>
+                    <img class="w-6 h-5" src="images/logo.webp" alt="logo Picture">
+                    <span class="text-3xl md:text-3xl text-[#131313] font-bold">Peddy</span>
                 </div>
                 <div class="hidden lg:block">
                     <ul class="flex gap-2 md:gap-10">
@@ -108,7 +122,7 @@
         </div>
         </dialog>
 
-        <!-- adobe button er jonno modal -->
+        <!-- adobe button modal -->
        
         <dialog id="adoptModalShow" class="modal modal-center sm:modal-middle px-6 md:px-0">
             <div class="modal-box w-56 lg:w-full">
@@ -159,7 +173,7 @@
            </div>
         </section>
     </footer>
-
+    
 
 
     <script src="js/dataApi.js"></script>
