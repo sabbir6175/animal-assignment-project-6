@@ -63,7 +63,7 @@ const displayCategories =(categories) =>{
         buttonContainer.innerHTML = `
             <button id="btn-${items.category}" onclick="clickButtonShow('${items.category}')" class="btn  md:btn-lg  w-36 md:w-60 h-16 border-2 border-gray-200  category-btn ">
              <img  src="${items.category_icon}" alt="Category Icon" class="category-icon w-10" /> 
-             <span class="text-base md:text-3xl">${items.category}</span>
+             <span class="text-base md:text-3xl Inter-font">${items.category}</span>
             </button>
         `
         categoriesBtn.append(buttonContainer)
@@ -251,7 +251,7 @@ const displayCard = (pets) => {
                 </figure>
                 <div class="card-body p-0 mt-3">
                     <div>
-                        <h1 class="text-xl font-black mb-4">${pet.pet_name}</h1>
+                        <h1 class="text-xl font-black mb-4 Inter-font">${pet.pet_name}</h1>
                         <div class="flex gap-2 mb-2">
                             <img src="images/Frame1.png" alt="">
                             <span>breed: ${ pet.breed ? pet.breed : "Not Found"}</span>
